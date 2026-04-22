@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+
+<h2>API Usage Dashboard</h2>
+
+<p>Status:
+<b>{{ "ACTIVE" if status else "INACTIVE" }}</b>
+</p>
+
+<table border="1">
+    <tr>
+        <th>Endpoint</th>
+        <th>Requests</th>
+    </tr>
+
+    {% for row in data %}
+    <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
+<p><b>Price:</b> KES 5,000/month</p>
+<p>3-day free trial → then payment required</p>
+
+</body>
+</html>
