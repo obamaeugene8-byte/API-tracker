@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Tracker</title>
+</head>
+<body>
+
+<h2>API Tracker SaaS</h2>
+
+<input id="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Password"><br><br>
+
+<button onclick="register()">Start 3-Day Trial</button>
+<button onclick="login()">Login</button>
+
+<p id="msg"></p>
+
+<script>
+async function register() {
+    let res = await fetch('/register', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            email: email.value,
+            password: password.value
+        })
+    });
+
+    let data = await res.json();
+
+    document.getElementById("msg").innerText =
+        "API KEY: " + data.api_key + " | After 3 days pay KES 5000/month";
+}
+
+async function login() {
+    let res = await fetch('/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            email: email.value,
+            password: password.value
+        })
+    });
+
+    let data = await res.json();
+
+    if (data.api_key) {
+        window.location.href = "/dashboard/" + data.api_key;
+    } else {
+        document.getElementById("msg").innerText = "Login failed";
+    }
+}
+</script>
+
+</body>
+</html>
