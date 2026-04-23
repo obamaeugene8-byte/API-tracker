@@ -28,7 +28,7 @@
         </td>
         <td>
             {% if user[2] == 0 %}
-                <a href="/admin/activate/{{ user[1] }}">Activate</a>
+                <a href="{{ url_for('admin_activate', api_key=user[1]) }}">Activate</a>
             {% else %}
                 ---
             {% endif %}
