@@ -150,6 +150,20 @@ def activate():
 
     return {"message": "User activated for 30 days"}
 
+# ---------------- ADMIN DASHBOARD ----------------
+@app.route("/admin")
+def admin():
+
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+
+    c.execute("SELECT email, api_key, is_active FROM users")
+    users = c.fetchall()
+
+    conn.close()
+
+    return render_template("admin.html", users=users)
+
 # ---------------- DASHBOARD ----------------
 @app.route("/dashboard/<api_key>")
 def dashboard(api_key):
