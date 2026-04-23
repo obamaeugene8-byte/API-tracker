@@ -30,7 +30,7 @@
             {% if user[2] == 0 %}
                 <a href="{{ url_for('admin_activate', api_key=user[1]) }}">Activate</a>
             {% else %}
-                ---
+                <a href="{{ url_for('admin_deactivate', api_key=user[1]) }}">Deactivate</a>
             {% endif %}
         </td>
     </tr>
