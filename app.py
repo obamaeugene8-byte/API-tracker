@@ -184,6 +184,23 @@ def admin_activate(api_key):
 
     return "User Activated! <a href='/admin'>Go Back</a>"
 
+@app.route("/admin/deactivate/<api_key>")
+def admin_deactivate(api_key):
+
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+
+    c.execute("""
+    UPDATE users
+    SET is_active=0
+    WHERE api_key=?
+    """, (api_key,))
+
+    conn.commit()
+    conn.close()
+
+    return "User Deactivated! <a href='/admin'>Back</a>"
+
 # ---------------- DASHBOARD ----------------
 @app.route("/dashboard/<api_key>")
 def dashboard(api_key):
