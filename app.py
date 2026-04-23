@@ -164,6 +164,26 @@ def admin():
 
     return render_template("admin.html", users=users)
 
+# ---------------- ADMIN ACTIVATE BUTTON ----------------
+@app.route("/admin/activate/<api_key>")
+def admin_activate(api_key):
+
+    new_expiry = datetime.now() + timedelta(days=30)
+
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+
+    c.execute("""
+    UPDATE users
+    SET is_active=1, expires_at=?
+    WHERE api_key=?
+    """, (new_expiry, api_key))
+
+    conn.commit()
+    conn.close()
+
+    return "User Activated! <a href='/admin'>Go Back</a>"
+
 # ---------------- DASHBOARD ----------------
 @app.route("/dashboard/<api_key>")
 def dashboard(api_key):
