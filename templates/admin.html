@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+</head>
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<table border="1">
+    <tr>
+        <th>Email</th>
+        <th>API Key</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for user in users %}
+    <tr>
+        <td>{{ user[0] }}</td>
+        <td>{{ user[1] }}</td>
+        <td>
+            {% if user[2] == 1 %}
+                ACTIVE
+            {% else %}
+                INACTIVE
+            {% endif %}
+        </td>
+        <td>
+            {% if user[2] == 0 %}
+                <a href="/admin/activate/{{ user[1] }}">Activate</a>
+            {% else %}
+                ---
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
